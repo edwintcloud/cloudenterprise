@@ -1,0 +1,1 @@
+Loading testing with [Vegeta](https://github.com/tsenart/vegeta)
