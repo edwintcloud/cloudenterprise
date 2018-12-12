@@ -1,0 +1,13 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "l1YNkb6/66PSOUhUDgzphOd7Z3Y=",
+			"path": "github.com/gorilla/mux",
+			"revision": "d2b5d13b9260193b5a5649e9f47fda645bd2bd1d",
+			"revisionTime": "2018-12-08T20:40:53Z"
+		}
+	],
+	"rootPath": "github.com/cloudenterprise/goblog/accountservice"
+}
