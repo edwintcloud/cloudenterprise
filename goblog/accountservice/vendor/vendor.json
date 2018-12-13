@@ -3,10 +3,22 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "20Pind5XCrfZL/F0oibWfd9gotA=",
+			"path": "github.com/boltdb/bolt",
+			"revision": "fd01fc79c553a8e99d512a07e8e0c63d4a3ccfc5",
+			"revisionTime": "2018-03-02T18:00:52Z"
+		},
+		{
 			"checksumSHA1": "l1YNkb6/66PSOUhUDgzphOd7Z3Y=",
 			"path": "github.com/gorilla/mux",
 			"revision": "d2b5d13b9260193b5a5649e9f47fda645bd2bd1d",
 			"revisionTime": "2018-12-08T20:40:53Z"
+		},
+		{
+			"checksumSHA1": "V9cDNmc9FzO9qwcPFKUA1SF5nno=",
+			"path": "golang.org/x/sys/unix",
+			"revision": "b05ddf57801d2239d6ab0ee35f9d981e0420f4ac",
+			"revisionTime": "2018-12-11T16:24:22Z"
 		}
 	],
 	"rootPath": "github.com/cloudenterprise/goblog/accountservice"
