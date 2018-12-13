@@ -14,7 +14,7 @@ import (
 // IBoltClient defines the contract we need our BoltClient to fill
 type IBoltClient interface {
 	OpenBoltDb()
-	// QueryAccount(accountID string) (model.Account, error)
+	QueryAccount(accountID string) (model.Account, error)
 	Seed()
 }
 
@@ -76,4 +76,35 @@ func (bc *BoltClient) seedAccounts() {
 		})
 	}
 	fmt.Printf("Seeded %v fake accounts... \n", total)
+}
+
+// QueryAccount queries db for an account
+func (bc *BoltClient) QueryAccount(accountID string) (model.Account, error) {
+
+	// Allocate an empty account instance we will use later to populate with JSON using json.Unmarshal
+	account := model.Account{}
+
+	// Read an object from the bucket using boltDb.view
+	err := bc.boltDB.View(func(tx *bolt.Tx) error {
+		// Read the bucket from the db
+		b := tx.Bucket([]byte("AccountBucket"))
+
+		// Read the value identified by our accountID supplied as []byte
+		accountBytes := b.Get([]byte(accountID))
+		if accountBytes == nil {
+			return fmt.Errorf("No account found for account %s", accountID)
+		}
+
+		// Unmarshal the returned bytes	 into the account struct we created earlier
+		json.Unmarshal(accountBytes, &account)
+
+		// return nil to indicate nothing went wrong, e.g no error
+		return nil
+	})
+	// If there was an error, return the error
+	if err != nil {
+		return model.Account{}, err
+	}
+	// else return the result and nil error
+	return account, nil
 }
