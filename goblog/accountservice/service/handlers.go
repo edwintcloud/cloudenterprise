@@ -12,6 +12,17 @@ import (
 // DBClient is the db instance
 var DBClient dbclient.IBoltClient
 
+type healthCheckResponse struct {
+	Status string `json:"status"`
+}
+
+func writeJSONResponse(w http.ResponseWriter, status int, data []byte) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Length", strconv.Itoa(len(data)))
+	w.WriteHeader(status)
+	w.Write(data)
+}
+
 // GetAccount handles find account route
 func GetAccount(w http.ResponseWriter, r *http.Request) {
 
@@ -29,8 +40,17 @@ func GetAccount(w http.ResponseWriter, r *http.Request) {
 
 	// if found, marshal into JSON, write headers and content
 	data, _ := json.Marshal(account)
-	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Content-Length", strconv.Itoa(len(data)))
-	w.WriteHeader(http.StatusOK)
-	w.Write(data)
+	writeJSONResponse(w, http.StatusOK, data)
+}
+
+// HealthCheck handles Health Check route
+func HealthCheck(w http.ResponseWriter, r *http.Request) {
+	dbUp := DBClient.Check()
+	if dbUp {
+		data, _ := json.Marshal(healthCheckResponse{Status: "UP"})
+		writeJSONResponse(w, http.StatusOK, data)
+	} else {
+		data, _ := json.Marshal(healthCheckResponse{Status: "Database unaccessible"})
+		writeJSONResponse(w, http.StatusServiceUnavailable, data)
+	}
 }

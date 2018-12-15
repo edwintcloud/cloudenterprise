@@ -22,4 +22,10 @@ var routes = Routes{
 		"/accounts/{accountID}",
 		GetAccount,
 	},
+	Route{
+		"HealthCheck",
+		"GET",
+		"/health",
+		HealthCheck,
+	},
 }

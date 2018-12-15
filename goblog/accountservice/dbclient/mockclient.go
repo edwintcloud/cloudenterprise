@@ -25,3 +25,9 @@ func (m *MockBoltClient) OpenBoltDb() {
 func (m *MockBoltClient) Seed() {
 	// Does nothing
 }
+
+// Check is healthcheck to make sure our db is initialized
+func (m *MockBoltClient) Check() bool {
+	args := m.Mock.Called()
+	return args.Get(0).(bool)
+}
